@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ml-ant-http" basedir="." default="http-get">
+	<property name="ml-ant-http.jar" value="ml-ant-http-1.1.3.jar" />
+	<fileset id="runtime.libs" dir="X:\tools\apache-ant-http-1.1.3\">
+		<include name="${ml-ant-http.jar}" />
+	</fileset>
+	<path id="runtime.classpath">
+		<fileset refid="runtime.libs" />
+	</path>
+	<taskdef name="http" classname="org.missinglink.ant.task.http.HttpClientTask">
+		<classpath refid="runtime.classpath" />
+	</taskdef>
+	<target name="http-get">
+		<http url="http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" outfile="dom4j-1.6.1.jar"/>
+	</target>
+	
+  <target name="clean">
+     <delete>
+        <fileset dir="." includes="*.jar"/>
+     </delete> 
+  </target> 
+	
+	
+</project>
