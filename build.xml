@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<project name="Ampel - Build Script" default="showinfo" basedir="..">
+	
+  <!-- Current working location -->	
+  <property name="workspace"       value="${basedir}"/> 
+  <property name="build.dir"       value="c:\temp\build\ampel"/>
+  <property name="binLoc"          value="${build.dir}\bin"/>
+  <property name="jarLoc"          value="${build.dir}\lib"/>
+   
+  <!-- Dumps some info so we find the created files afterwards. -->	
+  <target name="showinfo">  
+      <echo message="Start to create jars and pack whole scheduler  ..."/>    
+      <echo message="  "/>                      
+      <echo message="  workspace = ${workspace}"/>  	
+      <echo message="  place jars in = ${jarLoc}"/>            
+   	  <echo message="  place bins in = ${binLoc}"/>            
+  </target>
+
+  <target name="clean" >
+		 <delete dir="${build.dir}"/>
+  </target>	
+	
+  <!-- create required output location -->	
+  <target name="prepare" depends="clean">
+  	 <mkdir dir="${build.dir}"/>   
+   	 <mkdir dir="${jarLoc}"/>
+   	 <mkdir dir="${binLoc}"/>
+  </target> 	
+	
+  <target name="compile">
+  	<echo message="Plase make sure you have compile using eclipse and CTRL-B!"/>            
+  </target>	
+	
+  <target name="jar" depends="prepare">  	
+  	<jar jarfile="${jarLoc}/ampel.jar">  		  
+  		  <fileset dir="${workspace}/ampel/bin"/>   		
+  	</jar>
+  </target>
+	
+  <target name="deploy" depends="jar">  	
+    <copy todir="${jarLoc}">    	
+    	<!-- copy external libraries -->    	
+    	<fileset dir="${workspace}/ampel/lib" includes="*.jar"/>
+    </copy>
+  	
+    <copy todir="${binLoc}">    	    	
+    	<fileset dir="${workspace}/ampel" includes="*.bat"/>
+    </copy>
+    	  	
+  </target>
+   
+  <target name="buildall" depends="deploy" description="Builds Ampel">
+  </target>	  
+</project>
